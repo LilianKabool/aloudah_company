@@ -1,18 +1,35 @@
 import 'package:aloudeh_company/core/api/api_consumer.dart';
 import 'package:aloudeh_company/core/api/end_points.dart';
 import 'package:aloudeh_company/core/global/base_entity.dart';
+import 'package:aloudeh_company/features/admin/data/params/params/get_manifest_params.dart';
 import 'package:aloudeh_company/features/admin/data/params/promote_employee_params.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/getInfoTripsEntity.dart';
 import 'package:aloudeh_company/features/branchManager/data/entity/get_all_archive_trips_entity.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/get_all_branches_bm_entity.dart';
 import 'package:aloudeh_company/features/branchManager/data/entity/get_all_colsed_trips_entity.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/get_all_customers_entity.dart';
 import 'package:aloudeh_company/features/branchManager/data/entity/get_all_drivers_entity.dart';
 import 'package:aloudeh_company/features/branchManager/data/entity/get_all_employees_bManager_entity.dart';
 import 'package:aloudeh_company/features/branchManager/data/entity/get_all_open_trips_entity.dart';
 import 'package:aloudeh_company/features/branchManager/data/entity/get_all_record_entity_pagination.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/get_all_trips_by_trucks_entity.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/get_information_branch_entity.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/get_manifest_bm_entity.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/get_profile_entity.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/get_shipping_entity.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/get_trucks_by_branch_entity.dart';
 import 'package:aloudeh_company/features/branchManager/data/entity/login_bm_entity.dart';
 import 'package:aloudeh_company/features/branchManager/data/model/log_in_Bm_model.dart';
 
 // import 'package:aloudeh_company/features/branchManager/data/entity/loginBM_entity.dart';
 import 'package:aloudeh_company/features/branchManager/data/params/add_driver_params.dart';
+import 'package:aloudeh_company/features/branchManager/data/params/get_info_trips_params.dart';
+import 'package:aloudeh_company/features/branchManager/data/params/get_manifest_params.dart';
+import 'package:aloudeh_company/features/branchManager/data/params/get_shipping_params.dart';
+import 'package:aloudeh_company/features/customer/data/entity/get_arrived_shipping_entity.dart';
+import 'package:aloudeh_company/features/customer/data/entity/get_not_arrived_shipping_entity.dart';
+import 'package:aloudeh_company/features/customer/data/entity/get_not_received_shipping_entity.dart';
+import 'package:aloudeh_company/features/customer/data/entity/get_received_shipping_entity.dart';
 import 'package:get/get_connect/sockets/src/socket_notifier.dart';
 import '../../../../core/global/base_pagination_entity.dart';
 import '../../../../core/global/pagination_entity.dart';
@@ -24,7 +41,8 @@ import '../params/add_vacation_employee_params.dart';
 import '../params/add_vacation_warehouse_params.dart';
 import '../params/delete_driver_params.dart';
 import '../params/delete_employee_params.dart';
-import '../params/delete_truck_params.dart';
+import '../params/delete_truck_bm_params.dart';
+import '../params/get_all_trips_by_trucks_params.dart';
 import '../params/loginBMParams.dart';
 import '../params/rate_employee_params.dart';
 import '../params/truck_record_params.dart';
@@ -38,6 +56,9 @@ abstract class BranchManagerBaseWebServices {
 
   Future<BaseEntity> updateEmployee(UpdateEmployeeParams updateEmployeeParams);
 
+  Future<BasePaginationEntity<PaginationEntity<BranchForBM>>> getAllBranches(
+      int page);
+
   Future<BaseEntity> updateDriver(UpdateDriverParams updateDriverParams);
 
   Future<BaseEntity> deleteEmployee(DeleteEmployeeParams deleteEmployeeParams);
@@ -48,25 +69,42 @@ abstract class BranchManagerBaseWebServices {
 
   Future<BaseEntity> updateTruck(UpdateTruckParams updateTruckParams);
 
-  Future<BaseEntity> deleteTruck(DeleteTruckParams deleteTruckParams);
+  Future<BaseEntity> deleteTruck(DeleteTrukBMParams deleteTruckParams);
 
   Future<BaseEntity> deleteDriver(DeleteDriverParams deleteDriverParams);
 
   Future<LogInBmModel> logIn({required LogInBMParams logInBMParams});
 
   Future<GetAllEmployeesEntity> getAllEmployees();
-  // Future<GetTripInfoEntity> getTripInfo();
+
+  Future<GetAllTrucksByBranchEntity> getAllTrucksByBranch();
+
+  Future<GetInfoBranchEntity> getInfoBranch();
+
+  Future<GetProfileEntity> getProfile();
+
+
+  Future<GetTripInfoEntity> getInfotrip(GetInfoTripsParams getInfoTripsParams);
+
+  Future<GetShippingEntity> getShipping(GetShippingParams getShippingParams);
+Future<GetAllTripsByTrucksEntity> getAllTripsByTrucks(GetAllTripsByTrucksParams getAllTripsByTrucksParams);
+
   Future<BasePaginationEntity<PaginationEntity<TruckRecordPaginatedEntity>>>
       getAllTruckRecordPaginated(int page);
 
   Future<BasePaginationEntity<PaginationEntity<DriverPaginatedEntity>>>
       getAllDrivers(int page);
 
-  Future<BasePaginationEntity<PaginationEntity<ClosedTrip>>>
-      getAllClosedTrips(int page);
- Future<BasePaginationEntity<PaginationEntity<OpenTrip>>>
-      getAllOpenTrips(int page);
- Future<BasePaginationEntity<PaginationEntity<ArchiveTrip>>>
+  Future<BasePaginationEntity<PaginationEntity<ClosedTrip>>> getAllClosedTrips(
+      int page);
+
+  Future<BasePaginationEntity<PaginationEntity<Customer>>> getAllCustomer(
+      int page);
+
+  Future<BasePaginationEntity<PaginationEntity<OpenTrip>>> getAllOpenTrips(
+      int page);
+
+  Future<BasePaginationEntity<PaginationEntity<ArchiveTrip>>>
       getAllArchiveTrips(int page);
 
   Future<BaseEntity> promoteEmployee(
@@ -76,6 +114,9 @@ abstract class BranchManagerBaseWebServices {
 
   Future<BaseBMTruckRecordEntity> truckRecord(
       TruckRecordParams truckRecordParams);
+
+  Future<GetManifestBmEntity> getManifest(
+      GetManifestBMParams getManifestParams);
 
   Future<BaseEntity> addVacationWarehouse(
       AddVacationWarehouseParams addVacationWarehouseParams);
@@ -113,31 +154,41 @@ class BranchManagerWebServicesImpl implements BranchManagerBaseWebServices {
   }
 
   @override
-  Future<BasePaginationEntity<PaginationEntity<ClosedTrip>>>
-  getAllClosedTrips(int page) async {
+  Future<BasePaginationEntity<PaginationEntity<ClosedTrip>>> getAllClosedTrips(
+      int page) async {
     return await _getResultWithPagination(
         () => _apiConsumer
             .get(EndPoints.getAllClosedTripBM, queryParameters: {"page": page}),
         (json) => ClosedTrip.fromJson(json));
   }
 
+  @override
+  Future<BasePaginationEntity<PaginationEntity<Customer>>> getAllCustomer(
+      int page) async {
+    return await _getResultWithPagination(
+        () => _apiConsumer
+            .get(EndPoints.getAllCustomerBM, queryParameters: {"page": page}),
+        (json) => Customer.fromJson(json));
+  }
 
   @override
-  Future<BasePaginationEntity<PaginationEntity<OpenTrip>>>
-  getAllOpenTrips(int page) async {
+  Future<BasePaginationEntity<PaginationEntity<OpenTrip>>> getAllOpenTrips(
+      int page) async {
     return await _getResultWithPagination(
-            () => _apiConsumer
+        () => _apiConsumer
             .get(EndPoints.getAllOpenTripBM, queryParameters: {"page": page}),
-            (json) => OpenTrip.fromJson(json));
+        (json) => OpenTrip.fromJson(json));
   }
+
   @override
   Future<BasePaginationEntity<PaginationEntity<ArchiveTrip>>>
-  getAllArchiveTrips(int page) async {
+      getAllArchiveTrips(int page) async {
     return await _getResultWithPagination(
-            () => _apiConsumer
+        () => _apiConsumer
             .get(EndPoints.getAllOpenTripBM, queryParameters: {"page": page}),
-            (json) => ArchiveTrip.fromJson(json));
+        (json) => ArchiveTrip.fromJson(json));
   }
+
   @override
   Future<LogInBmModel> logIn({required LogInBMParams logInBMParams}) async {
     final response = await _apiConsumer.post(EndPoints.adminLogIn,
@@ -149,11 +200,34 @@ class BranchManagerWebServicesImpl implements BranchManagerBaseWebServices {
   Future<GetAllEmployeesEntity> getAllEmployees() async {
     final response = await _apiConsumer.get(EndPoints.getAllEmployeesBManager);
     return GetAllEmployeesEntity.fromJson(response);
-  } @override
-  // Future<GetTripInfoEntity> getTripInfo() async {
-  //   final response = await _apiConsumer.get(EndPoints.getTripInfo);
-  //   return GetAllEmployeesEntity.fromJson(response);
-  // }
+  }
+
+  @override
+  Future<GetAllTrucksByBranchEntity> getAllTrucksByBranch() async {
+    final response = await _apiConsumer.get(EndPoints.getAllTrucksByBranch);
+    return GetAllTrucksByBranchEntity.fromJson(response);
+  }
+
+  @override
+  Future<GetInfoBranchEntity> getInfoBranch() async {
+    final response = await _apiConsumer.get(EndPoints.getInfoBranchBM);
+    return GetInfoBranchEntity.fromJson(response);
+  }
+
+  @override
+  Future<GetProfileEntity> getProfile() async {
+    final response = await _apiConsumer.get(EndPoints.getProfileBM);
+    return GetProfileEntity.fromJson(response);
+  }
+
+  @override
+  Future<BasePaginationEntity<PaginationEntity<BranchForBM>>> getAllBranches(
+      int page) async {
+    return await _getResultWithPagination(
+        () => _apiConsumer
+            .get(EndPoints.getbranchesBM, queryParameters: {"page": page}),
+        (json) => BranchForBM.fromJson(json));
+  }
 
   @override
   Future<BaseEntity> updateEmployee(
@@ -216,7 +290,7 @@ class BranchManagerWebServicesImpl implements BranchManagerBaseWebServices {
   }
 
   @override
-  Future<BaseEntity> deleteTruck(DeleteTruckParams deleteTruckParams) async {
+  Future<BaseEntity> deleteTruck(DeleteTrukBMParams deleteTruckParams) async {
     final response = await _apiConsumer.post(EndPoints.deleteBMTruck,
         body: deleteTruckParams.toJson());
     return BaseEntity.fromJson(response);
@@ -243,6 +317,14 @@ class BranchManagerWebServicesImpl implements BranchManagerBaseWebServices {
     final response = await _apiConsumer
         .get("${EndPoints.truckBMRecord}/${truckRecordParams.desk}");
     return BaseBMTruckRecordEntity.fromJson(response);
+  }
+
+  @override
+  Future<GetManifestBmEntity> getManifest(
+      GetManifestBMParams getManifestParams) async {
+    final response = await _apiConsumer
+        .get("${EndPoints.getManifest}/${getManifestParams.manifestNumber}");
+    return GetManifestBmEntity.fromJson(response);
   }
 
   @override
@@ -290,5 +372,27 @@ class BranchManagerWebServicesImpl implements BranchManagerBaseWebServices {
     );
   }
 
+  @override
+  Future<GetTripInfoEntity> getInfotrip(
+      GetInfoTripsParams getInfoTripsParams) async {
+    final response = await _apiConsumer
+        .get("${EndPoints.getTripInfo}/${getInfoTripsParams.tripNumber}");
+    return GetTripInfoEntity.fromJson(response);
+  }
 
+  @override
+  Future<GetShippingEntity> getShipping(
+      GetShippingParams getShippingParams) async {
+    final response = await _apiConsumer
+        .get("${EndPoints.getShipping}/${getShippingParams.id}");
+    return GetShippingEntity.fromJson(response);
+  }
+
+  @override
+  Future<GetAllTripsByTrucksEntity> getAllTripsByTrucks(
+      GetAllTripsByTrucksParams getAllTripsByTrucksParams) async {
+    final response = await _apiConsumer.get(
+        "${EndPoints.getAllTripsByTrucks}/${getAllTripsByTrucksParams.truck_id}");
+    return GetAllTripsByTrucksEntity.fromJson(response);
+  }
 }

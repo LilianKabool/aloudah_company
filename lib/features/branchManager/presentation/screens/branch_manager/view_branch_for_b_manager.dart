@@ -1,5 +1,11 @@
+import 'package:aloudeh_company/core/global_states/get_state.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/get_information_branch_entity.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../../core/constants/colors_constants.dart';
+import '../../../../../core/error/network_exceptions.dart';
+import '../../../controllers/get_info_branch_cubit.dart';
 import '../../../presentation/widget/branch_information_text.dart';
 import '../../../presentation/widget/space_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,83 +21,21 @@ class ViewBranchForB_Manager extends StatefulWidget {
 }
 
 class _ViewBranchForB_ManagerState extends State<ViewBranchForB_Manager> {
-  String trip = 'DM-1-600';
-  String driver = 'Mohammed Ali Hwidi';
-  String date = '25-07-2009';
 
-  String branch_desk = 'Aleppo';
-  String branch_address = 'Aleppo, street 16';
-  String branch_manager = 'Seba Taleaa';
-  String branch_mobile = '+963 988022813';
-  String branch_opening_date = '25-07-2009';
-
-  Widget RowTableItem() {
-    return GestureDetector(
-      onTap: (){
-       // Navigator.push(context, MaterialPageRoute(builder:(context)=>ViewTripAfterInvoiceEmployee() /*ViewTripBeforInvoiceEmployee()*/));
-      },
-      child: Container(
-        height: 80.h,
-        padding: EdgeInsets.symmetric(horizontal: 10.w),
-        margin: EdgeInsets.symmetric(horizontal: 20.0.w),
-        decoration: BoxDecoration(
-          color: AppColors.darkBlue,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(50.r),
-            topRight: Radius.circular(50.r),
-          ),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                '${trip}',
-                style: TextStyle(
-                  color: AppColors.pureWhite,
-                  fontFamily: 'bahnschrift',
-                  fontSize: 16.sp,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                '${driver}',
-                style: TextStyle(
-                  color: AppColors.pureWhite,
-                  fontFamily: 'bahnschrift',
-                  fontSize: 16.sp,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                '${date}',
-                style: TextStyle(
-                  color: AppColors.pureWhite,
-                  fontFamily: 'bahnschrift',
-                  fontSize: 16.sp,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildTripsTable() {
-    return ListView.separated(
-      itemBuilder: (context, index) {
-        return RowTableItem();
-      },
-      separatorBuilder: (context, index) => SpaceItem(),
-      itemCount: 15,
-    );
-  }
+  late GetInfoForBranchBMCubit cubit;
 
   @override
+  void initState() {
+    super.initState();
+    cubit = context.read<GetInfoForBranchBMCubit>();
+    cubit.emitGetInfoBranchBM();
+  }
+
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
       appBar: AppBar(
         title: Align(
@@ -117,182 +61,205 @@ class _ViewBranchForB_ManagerState extends State<ViewBranchForB_Manager> {
           SpaceItem(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'Desk',
-                      style: TextStyle(
-                        fontFamily: 'bahnschrift',
-                        color: AppColors.darkBlue,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                    SizedBox(
-                      width: screenWidth / 9,
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 40.h,
-                        color: AppColors.mediumBlue,
-                        child: Center(
-                          child: Text(
-                            '${branch_desk}',
-                            style: TextStyle(
-                              fontFamily: 'bahnschrift',
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SpaceItem(),
-                Row(
-                  children: [
-                    Text(
-                      'Address',
-                      style: TextStyle(
-                        fontFamily: 'bahnschrift',
-                        color: AppColors.darkBlue,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                    SizedBox(
-                      width: screenWidth / 25,
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 40.h,
-                        color: AppColors.mediumBlue,
-                        child: Center(
-                          child: Text(
-                            '${branch_address}',
-                            style: TextStyle(
-                              fontFamily: 'bahnschrift',
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SpaceItem(),
-                Row(
-                  children: [
-                    Text(
-                      'Manager',
-                      style: TextStyle(
-                        fontFamily: 'bahnschrift',
-                        color: AppColors.darkBlue,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                    SizedBox(
-                      width: screenWidth / 30,
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 40.h,
-                        color: AppColors.mediumBlue,
-                        child: Center(
-                          child: Text(
-                            '${branch_manager}',
-                            style: TextStyle(
-                              fontFamily: 'bahnschrift',
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SpaceItem(),
-                Row(
-                  children: [
-                    Text(
-                      'Mobile',
-                      style: TextStyle(
-                        fontFamily: 'bahnschrift',
-                        color: AppColors.darkBlue,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                    SizedBox(
-                      width: screenWidth / 13,
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 40.h,
-                        color: AppColors.mediumBlue,
-                        child: Center(
-                          child: Text(
-                            '${branch_mobile}',
-                            style: TextStyle(
-                              fontFamily: 'bahnschrift',
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SpaceItem(),
-                Row(
-                  children: [
-                    Column(
+            child: BlocConsumer<GetInfoForBranchBMCubit,
+                GetState<GetInfoBranchEntity>>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  error: (NetworkExceptions exception) {
+                    Fluttertoast.showToast(
+                      msg: NetworkExceptions.getErrorMessage(exception),
+                      toastLength: Toast.LENGTH_SHORT,
+                    );
+                  },
+                );
+              },
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () => const Center(child: Text("No information available")),
+                  loading: () =>
+                  const Center(child: CircularProgressIndicator()),
+                  success: (data) {
+                    return Column(
                       children: [
-                        Text(
-                          'Opening',
-                          style: TextStyle(
-                            fontFamily: 'bahnschrift',
-                            color: AppColors.darkBlue,
-                            fontSize: 16.sp,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              'Desk',
+                              style: TextStyle(
+                                fontFamily: 'bahnschrift',
+                                color: AppColors.darkBlue,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            SizedBox(
+                              width: screenWidth / 9,
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 40.h,
+                                color: AppColors.mediumBlue,
+                                child: Center(
+                                  child: Text(
+                                    '${data.desk}',
+                                    style: TextStyle(
+                                      fontFamily: 'bahnschrift',
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Date',
-                          style: TextStyle(
-                            fontFamily: 'bahnschrift',
-                            color: AppColors.darkBlue,
-                            fontSize: 16.sp,
-                          ),
+                        SpaceItem(),
+                        Row(
+                          children: [
+                            Text(
+                              'Address',
+                              style: TextStyle(
+                                fontFamily: 'bahnschrift',
+                                color: AppColors.darkBlue,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            SizedBox(
+                              width: screenWidth / 25,
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 40.h,
+                                color: AppColors.mediumBlue,
+                                child: Center(
+                                  child: Text(
+                                    '${data.address}',
+                                    style: TextStyle(
+                                      fontFamily: 'bahnschrift',
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SpaceItem(),
+                        Row(
+                          children: [
+                            Text(
+                              'Manager',
+                              style: TextStyle(
+                                fontFamily: 'bahnschrift',
+                                color: AppColors.darkBlue,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            SizedBox(
+                              width: screenWidth / 30,
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 40.h,
+                                color: AppColors.mediumBlue,
+                                child: Center(
+                                  child: Text(
+                                    '${data.manager}',
+                                    style: TextStyle(
+                                      fontFamily: 'bahnschrift',
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SpaceItem(),
+                        Row(
+                          children: [
+                            Text(
+                              'Mobile',
+                              style: TextStyle(
+                                fontFamily: 'bahnschrift',
+                                color: AppColors.darkBlue,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            SizedBox(
+                              width: screenWidth / 13,
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 40.h,
+                                color: AppColors.mediumBlue,
+                                child: Center(
+                                  child: Text(
+                                    '${data.mobile}',
+                                    style: TextStyle(
+                                      fontFamily: 'bahnschrift',
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SpaceItem(),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  'Opening',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.darkBlue,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                Text(
+                                  'Date',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.darkBlue,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: screenWidth / 20,
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 40.h,
+                                color: AppColors.mediumBlue,
+                                child: Center(
+                                  child: Text(
+                                    '${data.openingDate}',
+                                    style: TextStyle(
+                                      fontFamily: 'bahnschrift',
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
-                    ),
-                    SizedBox(
-                      width: screenWidth / 20,
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 40.h,
-                        color: AppColors.mediumBlue,
-                        child: Center(
-                          child: Text(
-                            '${branch_opening_date}',
-                            style: TextStyle(
-                              fontFamily: 'bahnschrift',
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                    );
+                  },
+                );
+              },
+
             ),
           ),
           SpaceItem(),
           DividerItem(),
           SpaceItem(),
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 30.0.w),
+            padding: EdgeInsets.symmetric(horizontal: 30.0.w),
             child: Row(
               children: [
                 Expanded(
@@ -308,7 +275,7 @@ class _ViewBranchForB_ManagerState extends State<ViewBranchForB_Manager> {
                 ),
                 Expanded(
                   child: Text(
-                    'Driver',
+                    'Destination',
                     style: TextStyle(
                       color: AppColors.yellow,
                       fontFamily: 'bahnschrift',
@@ -332,9 +299,89 @@ class _ViewBranchForB_ManagerState extends State<ViewBranchForB_Manager> {
             ),
           ),
           SpaceItem(),
-          Expanded(
-            child: buildTripsTable(),
+          BlocConsumer<GetInfoForBranchBMCubit,
+              GetState<GetInfoBranchEntity>>(
+            listener: (context, state) {
+              state.whenOrNull(
+                error: (NetworkExceptions exception) {
+                  Fluttertoast.showToast(
+                    msg: NetworkExceptions.getErrorMessage(exception),
+                    toastLength: Toast.LENGTH_SHORT,
+                  );
+                },
+              );
+            },
+            builder: (context, state) {
+              return state.maybeWhen(
+                orElse: () => const Center(child: Text("No information available")),
+                loading: () =>
+                const Center(child: CircularProgressIndicator()),
+                success: (data) {
+                  return Expanded(
+                    child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            // Navigator.push(context, MaterialPageRoute(builder:(context)=>ViewTripAfterInvoiceEmployee() /*ViewTripBeforInvoiceEmployee()*/));
+                          },
+                          child: Container(
+                            height: 80.h,
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            margin: EdgeInsets.symmetric(horizontal: 20.0.w),
+                            decoration: BoxDecoration(
+                              color: AppColors.darkBlue,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(50.r),
+                                topRight: Radius.circular(50.r),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    '${data.trips[index].number}',
+                                    style: TextStyle(
+                                      color: AppColors.pureWhite,
+                                      fontFamily: 'bahnschrift',
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    '${data.trips[index].destination}',
+                                    style: TextStyle(
+                                      color: AppColors.pureWhite,
+                                      fontFamily: 'bahnschrift',
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    '${data.trips[index].date}',
+                                    style: TextStyle(
+                                      color: AppColors.pureWhite,
+                                      fontFamily: 'bahnschrift',
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) => SpaceItem(),
+                      itemCount: data.trips.length,
+                    ),
+                  );
+                },
+              );
+            },
+
           ),
+
         ],
       ),
     );

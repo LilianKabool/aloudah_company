@@ -9,6 +9,7 @@ class OpenTripItemForB_Manager extends StatelessWidget {
   final String openTripName;
 
   final String manifestId;
+  // final String manifestNumber;
 
   final String trip_date;
 
@@ -24,8 +25,51 @@ class OpenTripItemForB_Manager extends StatelessWidget {
   final String creator_name;
   final String editor_name;
 
+  //
+  // final int count;
+  // final int receipt;
+  //
+   final String desk;
+  //
+  // final String type;
+  //
+  // final int quantity;
+  //
+  // final String sender;
+  // final String consignee;
+  //
+  // final String against_shipping;
+  //
+  // final String adapter;
+  //
+  // final String miscellaneous;
+  //
+  // final String advance;
+  //
+  // final double collection;
+  //
+  // final String pre_paid;
+  //
+  // final String discount;
+
   OpenTripItemForB_Manager({
+    //required this.count,
+    // required this.receipt,
+    // required this.source,
+    // required this.type,
+    // required this.quantity,
+    // required this.sender,
+    // required this.consignee,
+    // required this.against_shipping,
+    // required this.adapter,
+    // required this.miscellaneous,
+    // required this.advance,
+    // required this.collection,
+    // required this.pre_paid,
+    // required this.discount,
     required this.openTripName,
+    required this.desk,
+    // required this.manifestNumber,
     required this.manifestId,
     required this.branch,
     required this.trip_date,
@@ -40,7 +84,7 @@ class OpenTripItemForB_Manager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Padding(
+      body: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 10, 10, 10),
         child: Row(
           children: [
@@ -76,7 +120,23 @@ class OpenTripItemForB_Manager extends StatelessWidget {
                                 trip_driver: trip_driver,
                                 branch: branch,
                                 destination: destination,
-
+// manifestNumber : manifestNumber ,
+desk : desk ,
+                                // adapter: adapter,
+                                // advance: advance,
+                                // against_shipping: against_shipping,
+                                // collection: collection,
+                                // consignee: consignee,
+                                // count: count,
+                                // discount: discount,
+                                // miscellaneous: miscellaneous,
+                                // pre_paid: pre_paid,
+                                // quantity: quantity,
+                                // receipt: receipt,
+                                // sender: sender,
+                                // source: source,
+                                // type: type,
+                                TripNumber: openTripName,
                               )));
                 },
                 icon: Icon(

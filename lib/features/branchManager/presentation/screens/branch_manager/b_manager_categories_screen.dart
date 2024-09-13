@@ -1,5 +1,5 @@
-
 import 'package:aloudeh_company/core/constants/colors_constants.dart';
+import 'package:aloudeh_company/features/branchManager/controllers/get_branches_pagenation_cubit.dart';
 import 'package:aloudeh_company/features/branchManager/presentation/screens/branch_manager/branches_list_for_b_manager.dart';
 import 'package:aloudeh_company/features/branchManager/presentation/screens/branch_manager/customers_list_for_b_manager.dart';
 import 'package:aloudeh_company/features/branchManager/presentation/screens/branch_manager/employees_list_for%20_b_manger.dart';
@@ -12,46 +12,53 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'complaints_for_b_manager.dart';
 
-
-
-class B_ManagerCategoriesScreen extends StatelessWidget{
-  @override
+class B_ManagerCategoriesScreen extends StatelessWidget {
+  // late Gt cubit;
+  // final RefreshController _refreshController =
+  // RefreshController(initialRefresh: false);
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   cubit = context.read<GetAllBranchesBMPaginatedCubit>();
+  //   cubit.emitGetAllBranches();
+  // }
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     String notification = 'dfghj dfghj dfgh fghj fgh';
 
     Widget NotificationItem() => Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor: AppColors.darkBlue,
-            radius: 25.r,
-            child: Icon(
-              Icons.notifications,
-              color: AppColors.pureWhite,
-            ),
-          ),
-          SizedBox(
-            width: 5.w,
-          ),
-          Expanded(
-            child: Text(
-              '${notification}',
-              style: TextStyle(
-                color: AppColors.pureBlack,
-                fontFamily: 'bahnschrift',
-                fontSize: 17.0.sp,
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: AppColors.darkBlue,
+                radius: 25.r,
+                child: Icon(
+                  Icons.notifications,
+                  color: AppColors.pureWhite,
+                ),
               ),
-            ),
+              SizedBox(
+                width: 5.w,
+              ),
+              Expanded(
+                child: Text(
+                  '${notification}',
+                  style: TextStyle(
+                    color: AppColors.pureBlack,
+                    fontFamily: 'bahnschrift',
+                    fontSize: 17.0.sp,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.check_circle_outline,
+                color: Colors.grey[400],
+              ),
+            ],
           ),
-          Icon(
-            Icons.check_circle_outline,
-            color: Colors.grey[400],
-          ),
-        ],
-      ),
-    );
+        );
 
     return Scaffold(
       body: Padding(
@@ -101,8 +108,11 @@ class B_ManagerCategoriesScreen extends StatelessWidget{
                     ),
                   ),
                   FloatingActionButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder:(context)=>ComplaintsForB_Manager()));
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ComplaintsForB_Manager()));
                     },
                     shape: CircleBorder(
                       side: BorderSide(
@@ -117,7 +127,7 @@ class B_ManagerCategoriesScreen extends StatelessWidget{
                     ),
                   ),
                   FloatingActionButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     shape: CircleBorder(
                       side: BorderSide(
                         color: AppColors.darkBlue,
@@ -137,7 +147,7 @@ class B_ManagerCategoriesScreen extends StatelessWidget{
               ),
             ),
             SizedBox(
-              height: screenHeight/20,
+              height: screenHeight / 20,
             ),
             Text(
               'Tell us',
@@ -199,7 +209,11 @@ class B_ManagerCategoriesScreen extends StatelessWidget{
                         ),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder:(context)=>TripsListForB_Manager()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TripsListForB_Manager()));
                           },
                           icon: Icon(
                             Icons.directions,
@@ -253,7 +267,11 @@ class B_ManagerCategoriesScreen extends StatelessWidget{
                         ),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder:(context)=>EmployeesListForB_Manager()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        EmployeesListForB_Manager()));
                           },
                           icon: Icon(
                             Icons.directions,
@@ -307,7 +325,11 @@ class B_ManagerCategoriesScreen extends StatelessWidget{
                         ),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder:(context)=>TrucksListForB_Manager()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TrucksListForB_Manager()));
                           },
                           icon: Icon(
                             Icons.directions,
@@ -361,7 +383,11 @@ class B_ManagerCategoriesScreen extends StatelessWidget{
                         ),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder:(context)=>CustomersListForB_Manager()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        CustomersListForB_Manager()));
                           },
                           icon: Icon(
                             Icons.directions,
@@ -415,7 +441,11 @@ class B_ManagerCategoriesScreen extends StatelessWidget{
                         ),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder:(context)=>BranchesListForB_Manager()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        BranchesListForB_Manager()));
                           },
                           icon: Icon(
                             Icons.directions,
@@ -498,5 +528,4 @@ class B_ManagerCategoriesScreen extends StatelessWidget{
       ),
     );
   }
-
 }

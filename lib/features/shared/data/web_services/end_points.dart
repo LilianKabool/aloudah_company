@@ -1,7 +1,7 @@
 import 'package:aloudeh_company/core/enum/role_enum.dart';
 
 class EndPoints {
-  static const String baseUrl = 'http://192.168.1.5:8000/api';
+  static const String baseUrl = 'http://192.168.1.7:8000/api';
 
   static const String getRoleP = '$baseUrl/get-role';
   static const String forgetPassword = '$baseUrl/sendresetlink';

@@ -138,7 +138,7 @@ class _BranchDropdownState extends State<BranchDropdown> {
 }
 
 class EditBranchScreen extends StatefulWidget {
-  final _branchBranchIdController = TextEditingController();
+
   final _branchAddressController = TextEditingController();
   final _branchPhoneController = TextEditingController();
   final _branchNameController = TextEditingController();

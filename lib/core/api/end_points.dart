@@ -1,5 +1,6 @@
 class EndPoints {
- static const String baseUrl = 'http://192.168.1.5:8000/api';
+ static const String baseUrl = 'http://192.168.1.7:8000/api';
+
  //admin ///////////////////////////////////////////
   static const String adminRegister = '$baseUrl/register';
   static const String adminLogIn = '$baseUrl/login';
@@ -35,6 +36,12 @@ class EndPoints {
   static const String getAllActiveTripsAdmin =
       '$baseUrl/admin/getallactivetrips';
   static const String getAllArchiveTripsAdmin = '$baseUrl/admin/GetArchiveData';
+  static const String getAllArchiveTripsBM = '$baseUrl/branchmanager/GetArchivedTrips';
+  static const String getbranchesBM = '$baseUrl/branchmanager/getbranches';
+  static const String getAllTripsByTrucks = '$baseUrl/branchmanager/GetAllTripsByTruck';
+  static const String getAllTrucksByBranch = '$baseUrl/branchmanager/mybranchtrucks';
+  static const String getInfoBranchBM = '$baseUrl/branchmanager/getbranchinformatin';
+  static const String getAllCustomerBM = '$baseUrl/branchmanager/getcustomers';
   static const String getTripInformationAdmin =
       '$baseUrl/admin/GetTripInformation';
   static const String getCustomerByIdAdmin = '$baseUrl/admin/getcustomer';
@@ -50,6 +57,8 @@ class EndPoints {
   ////////////////////////////////////////////BM  ////////////////////////////////////////////
 
   static const String addBMEmployee = '$baseUrl/branchmanager/addemployee';
+  static const String getProfileBM = '$baseUrl/branchmanager/myprofile';
+  static const String LogOutBM = '$baseUrl/branchmanager/logout';
   static const String updateBMEmployee =
       '$baseUrl/branchmanager/updateemployee';
   static const String updateBMDriver = '$baseUrl/branchmanager/updatedriver';
@@ -63,12 +72,14 @@ class EndPoints {
       '$baseUrl/branchmanager/promoteemployee';
   static const String rateBMEmployee = '$baseUrl/branchmanager/rateemployee';
   static const String truckBMRecord = '$baseUrl/branchmanager/truckrecord';
+  static const String getManifest = '$baseUrl/branchmanager/getManifest';
   static const String addVacationBMEmployee =
       '$baseUrl/branchmanager/addvacationforemployee';
   static const String addVacationBMWarehouse =
       '$baseUrl/branchmanager/addvacationforwmanager';
   static const String addShippingBMCost =
-      '$baseUrl/branchmanager/shippingprices';
+      '$baseUrl/branchmanager/shippingprices'; static const String getShipping =
+      '$baseUrl/branchmanager/getshipping';
   static const String editShippingBMCost =
       '$baseUrl/branchmanager/editshippingprices';
 
@@ -176,4 +187,14 @@ class EndPoints {
       '$baseUrl/warehousemanager/trip/status';
   static const String getManifestWarehouse =
       '$baseUrl/warehousemanager/getManifest';
+  //////////////////customer/////////////////////////////////
+ static const String checkCustomer = '$baseUrl/customer/checkcustomer';
+ static const String setPassword = '$baseUrl/customer/setpassword';
+ static const String customerLogIn = '$baseUrl/customer/customerlogin';
+ static const String addCompliant = '$baseUrl/customer/addcompliant';
+ static const String arrivedShippings = '$baseUrl/customer/arrivedshippings';
+ static const String notArrivedShippings = '$baseUrl/customer/notarrivedshippings';
+ static const String receivedShippings = '$baseUrl/customer/receivedshippings';
+ static const String notReceivedShippings = '$baseUrl/customer/notreceivedshippings';
+ static const String aboutUs = '$baseUrl/customer/aboutus';
 }

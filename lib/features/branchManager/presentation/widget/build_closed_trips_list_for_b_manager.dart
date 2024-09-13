@@ -78,30 +78,39 @@ class _BuildClosedTripsListForB_ManagerState
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           ClosedTripRecordForB_Manager(
-                                            manifest_id: listOfClosedTrips
-                                                .manifestId
-                                                .toString(),
+manifest_id:listOfClosedTrips.manifestId.toString() ,
+                                            TripNumber: listOfClosedTrips.number,
+                                            // openTripName:
+                                            // listOfClosedTrips.number,
+                                            // manifestId: listOfClosedTrips
+                                            //     .manifestId
+                                            //     .toString(),
+
                                             destination: listOfClosedTrips
                                                 .destinationId
                                                 .toString(),
-                                            branch:
-                                                listOfClosedTrips.branch.desk,
-                                            creator_name:
-                                                listOfClosedTrips.createdBy,
+                                            branch: listOfClosedTrips
+                                                .branch.address
+                                                .toString(),   desk: listOfClosedTrips
+                                              .branch.desk
+                                              .toString(),
+                                            creator_name: listOfClosedTrips
+                                                .createdBy
+                                                .toString(),
                                             editor_name: listOfClosedTrips
                                                 .editedBy
                                                 .toString(),
-                                            trip_number:listOfClosedTrips.number ,
-                                            trip_date: listOfClosedTrips.date
+                                            trip_date:
+                                            listOfClosedTrips.date.toString(),
+                                            trip_status: listOfClosedTrips.status
                                                 .toString(),
-                                            trip_status:
-                                                listOfClosedTrips.status,
                                             trip_truck: listOfClosedTrips
                                                 .truck.number
                                                 .toString(),
                                             trip_driver: listOfClosedTrips
                                                 .driver.name
                                                 .toString(),
+
                                           )));
                             },
                             icon: Icon(

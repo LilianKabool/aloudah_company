@@ -80,12 +80,12 @@ class _BuildEmployeesListB_ManagerState extends State<BuildEmployeesListB_Manage
                                           // employee_b_place:employee_b_place ,
                                           // employee_emp_date:employee_emp_date ,
                                           // employee_gender:employee_gender ,
-                                          employee_id: data.data[index].id,
-                                          //  employee_mobile: data.data[index].phoneNumber,
-                                          // employee_mother_name:employee_mother_name ,
-                                          employee_name: data.data[index].name,
-                                          employee_phone: int.parse(
-                                              data.data[index].phoneNumber),
+                                          // employee_id: data.data[index].id,
+                                          // //  employee_mobile: data.data[index].phoneNumber,
+                                          // // employee_mother_name:employee_mother_name ,
+                                          // employee_name: data.data[index].name,
+                                          // employee_phone: int.parse(
+                                          //     data.data[index].phoneNumber),
                                           // employee_phone:employee_phone ,
                                           // employee_rank: employee_rank,
                                           //  employee_rate: employee_rate,

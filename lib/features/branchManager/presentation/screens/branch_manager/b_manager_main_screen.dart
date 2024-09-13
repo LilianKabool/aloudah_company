@@ -1,4 +1,12 @@
+import 'package:aloudeh_company/core/error/network_exceptions.dart';
+import 'package:aloudeh_company/features/branchManager/presentation/screens/branch_manager/login_b_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../../../core/constants/colors_constants.dart';
+import '../../../../../core/global_states/post_state.dart';
+import '../../../../../core/utils/shared_preference_utils.dart';
+import '../../../data/entity/log_out_entity.dart';
 import '../../../presentation/screens/branch_manager/about_us_screen_for_b_manager.dart';
 import '../../../presentation/screens/branch_manager/b_manager_categories_screen.dart';
 import '../../../presentation/screens/branch_manager/b_manager_profile_screen.dart';
@@ -7,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../widget/main_screen_text.dart';
-
 
 class B_ManagerMainScreen extends StatefulWidget {
   @override
@@ -23,33 +30,7 @@ class _B_ManagerMainScreenState extends State<B_ManagerMainScreen> {
     B_ManagerCategoriesScreen(),
   ];
 
-  _showOption (BuildContext context){
-    return showDialog(
-      context: context,
-      builder: (context) =>AlertDialog(
-        content: SingleChildScrollView(
-          child: Column(
-            children: [
-              ListTile(
-                leading : Icon(Icons.settings_outlined,color: AppColors.darkBlue,),
-                title: Text(
-                  'Settings',
-                ),
-                onTap:() {},
-              ),
-              ListTile(
-                leading : Icon(Icons.logout_outlined,color:AppColors.darkBlue,),
-                title: Text(
-                  'Log Out',
-                ),
-                onTap:() {},
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +57,36 @@ class _B_ManagerMainScreenState extends State<B_ManagerMainScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              _showOption(context);
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  content: SingleChildScrollView(
+                    child: Hero(
+                      tag: "log out ",
+                      child: Column(
+                        children: [
+                          ElevatedButton(
+                          onPressed: () async {
+                    //  context.read<LogOutCubit>().emitLogOut();
+                    await SharedPreferencesUtils().removeToken() ;
+
+                    Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) => LogInBMScreen(
+                    guard: 'branch_manager',
+                    ),
+                    ),
+                    );
+                    },
+                      child: Text("Log Out"),
+                    )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
             },
             icon: Icon(
               Icons.more_vert,
@@ -93,8 +103,7 @@ class _B_ManagerMainScreenState extends State<B_ManagerMainScreen> {
               bottomRight: Radius.circular(100.r),
             ),
             child: Container(
-              height: screenHeight/1.5,
-              //width: screenWidth/8,
+              height: screenHeight / 1.5,
               child: RotatedBox(
                 quarterTurns: 3,
                 child: BottomNavigationBar(
@@ -107,7 +116,6 @@ class _B_ManagerMainScreenState extends State<B_ManagerMainScreen> {
                   },
                   selectedItemColor: AppColors.yellow,
                   unselectedItemColor: AppColors.pureWhite,
-                  //unselectedLabelStyle: TextStyle(color: Colors.white),
                   items: [
                     BottomNavigationBarItem(
                       icon: Icon(
@@ -155,5 +163,3 @@ class _B_ManagerMainScreenState extends State<B_ManagerMainScreen> {
     );
   }
 }
-
-

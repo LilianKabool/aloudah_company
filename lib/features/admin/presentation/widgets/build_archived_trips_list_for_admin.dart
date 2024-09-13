@@ -1,6 +1,6 @@
 import 'package:aloudeh_company/features/admin/data/entity/archive_trips_paginated_entity.dart';
 import 'package:aloudeh_company/features/admin/presentation/controllers/get_all_archive_trips_paginated_cubit.dart';
-import 'package:aloudeh_company/features/admin/presentation/widgets/archived_trip_record_for_admin.dart';
+import 'package:aloudeh_company/features/admin/presentation/widgets/archived_trip_record_for_bm.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/get_all_archive_trips_cubit.dart';
 import 'package:aloudeh_company/features/employee/presentation/screens/pagination_state_test.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,16 +14,16 @@ import '../../../../core/error/network_exceptions.dart';
 import '../../../branchManager/data/entity/get_all_archive_trips_entity.dart';
 import 'divider_item.dart';
 
-class BuildArchivedTripsListForAdmin extends StatefulWidget {
-  const BuildArchivedTripsListForAdmin({super.key});
+class BuildArchivedTripsListForBM extends StatefulWidget {
+  const BuildArchivedTripsListForBM({super.key});
 
   @override
-  State<BuildArchivedTripsListForAdmin> createState() =>
-      _BuildArchivedTripsListForAdminState();
+  State<BuildArchivedTripsListForBM> createState() =>
+      _BuildArchivedTripsListForBMState();
 }
 
-class _BuildArchivedTripsListForAdminState
-    extends State<BuildArchivedTripsListForAdmin> {
+class _BuildArchivedTripsListForBMState
+    extends State<BuildArchivedTripsListForBM> {
   late GetAllArchiveTripsCubit cubit;
   final RefreshController _refreshController =
   RefreshController(initialRefresh: false);

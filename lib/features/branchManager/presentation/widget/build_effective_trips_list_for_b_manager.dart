@@ -1,4 +1,3 @@
-
 import 'package:aloudeh_company/core/constants/colors_constants.dart';
 import 'package:aloudeh_company/core/error/network_exceptions.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/get_all_open_trips_cubit.dart';
@@ -13,17 +12,18 @@ import '../../data/entity/get_all_open_trips_entity.dart';
 import 'divider_item.dart';
 import 'open_trip_item_for_b_manager.dart';
 
-class BuildOpenTripsListForB_Manager extends StatefulWidget{
-
+class BuildOpenTripsListForB_Manager extends StatefulWidget {
   @override
-  State<BuildOpenTripsListForB_Manager> createState() => _BuildOpenTripsListForB_ManagerState();
+  State<BuildOpenTripsListForB_Manager> createState() =>
+      _BuildOpenTripsListForB_ManagerState();
 }
 
-class _BuildOpenTripsListForB_ManagerState extends State<BuildOpenTripsListForB_Manager> {
+class _BuildOpenTripsListForB_ManagerState
+    extends State<BuildOpenTripsListForB_Manager> {
   @override
   late GetAllOpenTripsCubit cubit;
   final RefreshController _refreshController =
-  RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
 
   @override
   void initState() {
@@ -33,8 +33,7 @@ class _BuildOpenTripsListForB_ManagerState extends State<BuildOpenTripsListForB_
   }
 
   Widget build(BuildContext context) {
-    return BlocConsumer<GetAllOpenTripsCubit,
-        PaginationStateTest<OpenTrip>>(
+    return BlocConsumer<GetAllOpenTripsCubit, PaginationStateTest<OpenTrip>>(
       builder: (context, state) {
         return state.maybeWhen(
           loading: () => Center(child: CupertinoActivityIndicator()),
@@ -77,16 +76,37 @@ class _BuildOpenTripsListForB_ManagerState extends State<BuildOpenTripsListForB_
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           OpenTripItemForB_Manager(
-                                            openTripName:listOfOpenTrips.number,
-                                            manifestId: listOfOpenTrips.manifestId.toString(),
-                                            destination:listOfOpenTrips.destinationId.toString() ,
-                                            branch: listOfOpenTrips.branch.address.toString(),
-                                            creator_name: listOfOpenTrips.createdBy.toString(),
-                                             editor_name: listOfOpenTrips.editedBy.toString(),
-                                            trip_date: listOfOpenTrips.date.toString(),
-                                            trip_status: listOfOpenTrips.status.toString(),
-                                            trip_truck: listOfOpenTrips.truck.number.toString(),
-                                            trip_driver: listOfOpenTrips.driver.toString(),
+                                            openTripName:
+                                                listOfOpenTrips.number,
+                                            manifestId: listOfOpenTrips
+                                                .manifestId
+                                                .toString(),
+                                            // manifestNumber: listOfOpenTrips.
+                                            //     .toString(),
+                                            destination: listOfOpenTrips
+                                                .destinationId
+                                                .toString(),
+                                            branch: listOfOpenTrips
+                                                .branch.address
+                                                .toString(),   desk: listOfOpenTrips
+                                                .branch.desk
+                                                .toString(),
+                                            creator_name: listOfOpenTrips
+                                                .createdBy
+                                                .toString(),
+                                            editor_name: listOfOpenTrips
+                                                .editedBy
+                                                .toString(),
+                                            trip_date:
+                                                listOfOpenTrips.date.toString(),
+                                            trip_status: listOfOpenTrips.status
+                                                .toString(),
+                                            trip_truck: listOfOpenTrips
+                                                .truck.number
+                                                .toString(),
+                                            trip_driver: listOfOpenTrips
+                                                .driver.name
+                                                .toString(),
                                           )));
                             },
                             icon: Icon(

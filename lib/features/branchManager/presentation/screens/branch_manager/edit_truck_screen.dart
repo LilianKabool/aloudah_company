@@ -1,14 +1,14 @@
-import '../../../presentation/widget/divider_space_item.dart';
-import '../../../presentation/widget/edit_notes_in_edit_truck_screen.dart';
-import '../../../presentation/widget/edit_truck_information.dart';
-import '../../../presentation/widget/edit_user_info_in_edit_truck_screen.dart';
-import '../../../presentation/widget/space_item.dart';
+
+import 'package:aloudeh_company/core/constants/colors_constants.dart';
+import 'package:aloudeh_company/features/branchManager/presentation/widget/divider_space_item.dart';
+import 'package:aloudeh_company/features/branchManager/presentation/widget/edit_notes_in_edit_truck_screen.dart';
+import 'package:aloudeh_company/features/branchManager/presentation/widget/edit_truck_information.dart';
+import 'package:aloudeh_company/features/branchManager/presentation/widget/space_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../core/constants/colors_constants.dart';
 import '../../widget/divider_item.dart';
 import '../../widget/edit_screens_text_intro.dart';
+import '../../widget/edit_user_info_in_edit_truck_screen.dart';
 import '../../widget/truck_information_text.dart';
 
 class EditTruckScreen extends StatelessWidget{

@@ -8,11 +8,11 @@ import '../../../../core/constants/colors_constants.dart';
 
 class B_ManagerProfileInfo extends StatelessWidget{
 
-  String user_email = "dddff@gmail.com";
-  String user_address = "UAE, Dubai";
-  String user_birth = "25 jul 1990";
-  String user_mobile = "0985476215";
-
+  final String  email ;
+  final String  address ;
+  final String  birth ;
+  final String  mobile ;
+  B_ManagerProfileInfo({required this.email , required this.address , required this.mobile , required this.birth ,});
   void bottomSheetForEditProfile(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -50,7 +50,7 @@ class B_ManagerProfileInfo extends StatelessWidget{
                   ),
                   child: Center(
                     child: Text(
-                      '${user_email}',
+                      '${email}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColors.pureBlack,
@@ -85,7 +85,7 @@ class B_ManagerProfileInfo extends StatelessWidget{
                   ),
                   child: Center(
                     child: Text(
-                      '${user_mobile}',
+                      '${mobile}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColors.pureBlack,
@@ -120,7 +120,7 @@ class B_ManagerProfileInfo extends StatelessWidget{
                   ),
                   child: Center(
                     child: Text(
-                      '${user_address}',
+                      '${address}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColors.pureBlack,
@@ -155,7 +155,7 @@ class B_ManagerProfileInfo extends StatelessWidget{
                   ),
                   child: Center(
                     child: Text(
-                      '${user_birth}',
+                      '${birth}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColors.pureBlack,

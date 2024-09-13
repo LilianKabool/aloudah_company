@@ -40,7 +40,7 @@ class TripsListForAdmin extends StatelessWidget {
         body:  TabBarView(
           children: [
             EffectiveTripsForAdmin(),
-            ArchivedTripsForAdmin(),
+            ArchivedTripsForBM(),
           ],
         ),
       ),

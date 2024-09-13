@@ -31,25 +31,4 @@ class DriverPaginatedEntity {
 
   Map<String, dynamic> toJson() => _$DriverPaginatedEntityToJson(this);
 }
-//
-// @JsonSerializable()
-// class BaseDriverEntity {
-//   @JsonKey(name: 'success')
-//   final bool success;
-//
-//   @JsonKey(name: 'data')
-//   final List<DriverEntity> data;
-//
-//   @JsonKey(name: 'message')
-//   final String message;
-//
-//   BaseDriverEntity({
-//     required this.success,
-//     required this.data,
-//     required this.message,
-//   });
-//
-//   factory BaseDriverEntity.fromJson(Map<String, dynamic> json) => _$BaseDriverEntityFromJson(json);
-//
-//   Map<String, dynamic> toJson() => _$BaseDriverEntityToJson(this);
-// }
+

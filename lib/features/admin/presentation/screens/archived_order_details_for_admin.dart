@@ -21,7 +21,7 @@ class ArchivedOrderDetailsForAdmin extends StatelessWidget{
   // collection_against_shipping:shipping.;
   // collection_cost:shipping;
   final String content;
-  final int weight;
+  final double weight;
   final String marks;
   final String size;
   final String collection_adapter;

@@ -1,155 +1,8 @@
-// import 'dart:convert';
-
-// import 'package:aloudeh_company/core/api/api_consumer.dart';
-// import 'package:aloudeh_company/core/api/end_points.dart';
-// import 'package:aloudeh_company/core/api/logging_interceptor.dart';
-// import 'package:aloudeh_company/core/constants/strings_constants.dart';
-// import 'package:aloudeh_company/injection.dart';
-// import 'package:dio/dio.dart';
-// import 'package:flutter/foundation.dart';
-// import 'package:injectable/injectable.dart';
-
-
-// @Singleton(as: ApiConsumer)
-// class DioConsumer implements ApiConsumer {
-//   DioConsumer(
-//     this._client,
-//   ) {
-//     _client.options
-//       ..sendTimeout = const Duration(seconds: 10)
-//       ..connectTimeout = const Duration(seconds: 30)
-//       ..receiveTimeout = const Duration(seconds: 60)
-//       ..baseUrl = EndPoints.baseUrl
-//       ..responseType = ResponseType.plain
-//       ..followRedirects = true;
-//     if (kDebugMode) {
-//       _client.interceptors.add(
-//         getIt<LoggingInterceptor>(),
-//       );
-//     }
-//   }
-//   final Dio _client;
-//   late Map<String, String> _headers;
-
-//   void setHeaders() async {
-//     _headers = {
-//       StringsConstants.accept: StringsConstants.applicationJson,
-//       StringsConstants.contentType: StringsConstants.applicationJson,
-//     StringsConstants.authorization:"Bearer "
-//     };
-//   }
-
-//   @override
-//   Future get(
-//     String path, {
-//     Map<String, dynamic>? queryParameters,
-//     CancelToken? cancelToken,
-//   }) async {
-//     setHeaders();
-
-//     try {
-//       final Response response = await _client.get(
-//         path,
-//         queryParameters: queryParameters,
-//         cancelToken: cancelToken,
-//         options: Options(
-//           headers: _headers,
-//         ),
-//       );
-//       return _handleResponseAsJson(response);
-//     } catch (error) {
-//       rethrow;
-//     }
-//   }
-
-//   @override
-//   Future post(
-//     String path, {
-//     dynamic body,
-//     String? token,
-//     FormData? formData,
-//     ResponseType? responseType,
-//     Map<String, dynamic>? queryParameters,
-//   }) async {
-//     setHeaders();
-
-//     try {
-//       final Response response = await _client.post(
-//         path,
-//         queryParameters: queryParameters,
-//         options: Options(
-//           headers: _headers,
-//           contentType:
-//               formData == null ? StringsConstants.jsonContentType : null,
-//           responseType: responseType,
-//         ),
-//         data: formData ?? body,
-//       );
-//       return _handleResponseAsJson(response);
-//     } catch (error) {
-//       rethrow;
-//     }
-//   }
-
-//   @override
-//   Future put(
-//     String path, {
-//     Map<String, dynamic>? body,
-//     Map<String, dynamic>? queryParameters,
-//   }) async {
-//     setHeaders();
-//     try {
-//       final Response response = await _client.put(
-//         path,
-//         queryParameters: queryParameters,
-//         data: body,
-//         options: Options(
-//           headers: _headers,
-//           contentType: StringsConstants.jsonContentType,
-//         ),
-//       );
-//       return _handleResponseAsJson(response);
-//     } catch (error) {
-//       rethrow;
-//     }
-//   }
-
-//   dynamic _handleResponseAsJson(Response response) {
-//     final responseJson = jsonDecode(response.data.toString());
-//     return responseJson;
-//   }
-
-//   @override
-//   Future delete(String path,
-//       {Map<String, dynamic>? body,
-//       Map<String, dynamic>? queryParameters}) async {
-//     setHeaders();
-
-//     try {
-//       final Response response = await _client.delete(
-//         path,
-//         data: body,
-//         options: Options(
-//           headers: _headers,
-//           contentType: StringsConstants.jsonContentType,
-//         ),
-//       );
-//       return _handleResponseAsJson(response);
-//     } catch (error) {
-//       rethrow;
-//     }
-//   }
-// }
-
-
-//!Mark : check the code in this new optimize 
 import 'dart:convert';
-
 import 'package:aloudeh_company/core/api/api_consumer.dart';
 import 'package:aloudeh_company/core/api/end_points.dart';
 import 'package:aloudeh_company/core/api/logging_interceptor.dart';
 import 'package:aloudeh_company/core/constants/strings_constants.dart';
-import 'package:aloudeh_company/core/utils/shared_preference_utils.dart';
 import 'package:aloudeh_company/injection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -161,9 +14,9 @@ class DioConsumer implements ApiConsumer {
     this._client,
   ) {
     _client.options
-      ..sendTimeout = const Duration(seconds: 10)
-      ..connectTimeout = const Duration(seconds: 30)
-      ..receiveTimeout = const Duration(seconds: 60)
+      ..sendTimeout = const Duration(seconds: 100)
+      ..connectTimeout = const Duration(seconds: 10000)
+      ..receiveTimeout = const Duration(seconds: 1000)
       ..baseUrl = EndPoints.baseUrl
       ..responseType = ResponseType.plain
       ..followRedirects = true;
@@ -178,8 +31,8 @@ class DioConsumer implements ApiConsumer {
     StringsConstants.accept: StringsConstants.applicationJson,
     StringsConstants.contentType: StringsConstants.applicationJson,
     //StringsConstants.authorization: "Bearer ${SharedPreferencesUtils().getToken()}",
-    StringsConstants.authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTkyLjE2OC4xLjU6ODAwMC9hcGkvbG9naW4iLCJpYXQiOjE3MjUxMTg2OTMsImV4cCI6MTcyNTEyMjI5MywibmJmIjoxNzI1MTE4NjkzLCJqdGkiOiIwZ3lzcXNPeFkxTlNTOG5oIiwic3ViIjoiMSIsInBydiI6IjliZDBkMzY5NWNiZjhjYWQ1ODVkNDhhYzc5ZTYzMjQ0NTBlMzUxYmUifQ.G_ywOPBo4-OBKRzHSbqZcBy4CAY-Fw35DL2Oo3D1Q3I",
-
+    StringsConstants.authorization:
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTkyLjE2OC4xLjc6ODAwMC9hcGkvbG9naW4iLCJpYXQiOjE3MjYxMDQyNDMsImV4cCI6MTcyNjEwNzg0MywibmJmIjoxNzI2MTA0MjQzLCJqdGkiOiJSNXJPR2xoNTVsSzFtQ2IyIiwic3ViIjoiMSIsInBydiI6IjliZDBkMzY5NWNiZjhjYWQ1ODVkNDhhYzc5ZTYzMjQ0NTBlMzUxYmUifQ.NgCDEh92MFTARTu28T3P8n3_pF_z7Tt37NOgBNzIA98",
   };
 
   Options get _defaultOptions => Options(headers: _headers);

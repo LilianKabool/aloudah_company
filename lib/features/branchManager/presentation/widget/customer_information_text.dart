@@ -22,7 +22,7 @@ class CustomerInformationText extends StatelessWidget{
             style: TextStyle(
               fontSize: 23.sp,
               fontFamily: 'ScriptMT',
-              color: AppColors.darkBlue,
+              color: AppColors.mediumBlue,
             ),
           ),
           TextSpan(

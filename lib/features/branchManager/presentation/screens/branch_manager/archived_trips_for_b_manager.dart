@@ -20,7 +20,7 @@ class ArchivedTripsForB_Manager extends StatelessWidget {
         // SpaceItem(),
         DividerItem(),
         Expanded(
-          child: BuildArchivedTripsListForAdmin(),
+          child: BuildArchivedTripsListForBM(),
         ),
       ],
     );

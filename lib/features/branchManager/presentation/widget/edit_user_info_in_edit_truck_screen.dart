@@ -18,24 +18,6 @@ class _EditUserInfoInEditTruckScreenState extends State<EditUserInfoInEditTruckS
   bool showDate = false;
   DateTime selectedDate = DateTime.now();
 
-  void datePicker(BuildContext context) {
-    showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2018),
-      lastDate: DateTime(2100),
-    ).then((value) {
-      if (value == null) {
-        return;
-      }
-      setState(() {
-        selectedDate = value;
-        editing_date = DateFormat('yyyy-MM-dd').format(selectedDate);
-        showDate = true;
-        // print('Selected date: ${DateFormat.yMMMd().format(selectedDate)}');
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +134,22 @@ class _EditUserInfoInEditTruckScreenState extends State<EditUserInfoInEditTruckS
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    datePicker(context);
+                    showDatePicker(
+                      context: context,
+                      initialDate: selectedDate,
+                      firstDate: DateTime(2018),
+                      lastDate: DateTime(2100),
+                    ).then((value) {
+                      if (value == null) {
+                        return;
+                      }
+                      setState(() {
+                        selectedDate = value;
+                        editing_date = DateFormat('yyyy-MM-dd').format(selectedDate);
+                        showDate = true;
+                        // print('Selected date: ${DateFormat.yMMMd().format(selectedDate)}');
+                      });
+                    });
                   },
                   child: Container(
                     height: 40.h,

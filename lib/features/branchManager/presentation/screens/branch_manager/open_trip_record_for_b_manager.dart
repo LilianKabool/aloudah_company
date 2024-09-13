@@ -1,3 +1,5 @@
+import 'package:aloudeh_company/features/admin/data/params/params/get_trip_information_params.dart';
+import 'package:aloudeh_company/features/branchManager/data/params/get_info_trips_params.dart';
 import 'package:aloudeh_company/features/branchManager/presentation/screens/branch_manager/manifest_screen_for_b_manager.dart';
 import 'package:aloudeh_company/features/branchManager/presentation/screens/branch_manager/view_branch_for_b_manager.dart';
 import 'package:aloudeh_company/features/branchManager/presentation/screens/branch_manager/view_employees_powers_for_b_manager.dart';
@@ -6,23 +8,31 @@ import 'package:aloudeh_company/features/branchManager/presentation/widget/divid
 import 'package:aloudeh_company/features/branchManager/presentation/widget/logo_image_widget.dart';
 import 'package:aloudeh_company/features/branchManager/presentation/widget/open_trip_details_for_b_manager.dart';
 import 'package:aloudeh_company/features/branchManager/presentation/widget/open_trip_detials_2_for_b_manager.dart';
+import 'package:aloudeh_company/features/branchManager/presentation/widget/space_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../../core/constants/colors_constants.dart';
+import '../../../../../core/error/network_exceptions.dart';
+import '../../../../../core/global_states/get_state.dart';
 import '../../../../admin/presentation/widgets/trip_record_text.dart';
+import '../../../controllers/get_trip_information_cubit.dart';
+import '../../../data/entity/getInfoTripsEntity.dart';
 import '../../widget/divider_item.dart';
 
-class OpenTripRecordForB_Manager extends StatelessWidget {
+class OpenTripRecordForB_Manager extends StatefulWidget {
   final String manifest_id;
+  // final String manifestNumber;
 
   final String trip_date;
-
   final String trip_status;
 
   final String trip_truck;
   final String trip_driver;
+  late final String number;
 
   final String branch;
 
@@ -30,8 +40,13 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
 
   final String creator_name;
   final String editor_name;
+  final String TripNumber;
+  final String desk;
 
   OpenTripRecordForB_Manager({
+    required this.TripNumber,
+    required this.desk,
+     // required this.number,
     required this.manifest_id,
     required this.branch,
     required this.trip_date,
@@ -44,6 +59,37 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
   });
 
   @override
+  State<OpenTripRecordForB_Manager> createState() =>
+      _OpenTripRecordForB_ManagerState();
+}
+
+class _OpenTripRecordForB_ManagerState
+    extends State<OpenTripRecordForB_Manager> {
+  late final String general;
+
+  late final String miscPaid;
+
+  late final String netTotal;
+
+  late final String against_shipping;
+
+  late final String adapter;
+
+  late final String advance;
+
+  late final String  collection;
+
+  late final String discount;
+
+  late GetTripInfoCubit cubit;
+
+
+  @override
+  void initState() {
+    super.initState();
+    cubit = context.read<GetTripInfoCubit>();
+    cubit.emitGetTripsInfo(getInfoTripsParams: GetInfoTripsParams(tripNumber: widget.TripNumber));
+  }
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
@@ -78,7 +124,7 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Manifest  ${manifest_id}',
+                    'Manifest  ${widget.manifest_id}',
                     style: TextStyle(
                       color: AppColors.pureBlack,
                       fontFamily: 'bahnschrift',
@@ -114,7 +160,7 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
                         color: AppColors.mediumBlue,
                         child: Center(
                           child: Text(
-                            '${trip_date}',
+                            '${widget.trip_date}',
                             style: TextStyle(
                               fontFamily: 'bahnschrift',
                               fontSize: 16.sp,
@@ -148,7 +194,7 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
                         color: AppColors.mediumBlue,
                         child: Center(
                           child: Text(
-                            '${trip_status}',
+                            '${widget.trip_status}',
                             style: TextStyle(
                               fontFamily: 'bahnschrift',
                               fontSize: 16.sp,
@@ -190,7 +236,7 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
                           color: AppColors.mediumBlue,
                           child: Center(
                             child: Text(
-                              '${trip_truck}',
+                              '${widget.trip_truck}',
                               style: TextStyle(
                                 fontFamily: 'bahnschrift',
                                 fontSize: 16.sp,
@@ -229,7 +275,7 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
                           color: AppColors.mediumBlue,
                           child: Center(
                             child: Text(
-                              '${trip_driver}',
+                              '${widget.trip_driver}',
                               style: TextStyle(
                                 fontFamily: 'bahnschrift',
                                 fontSize: 16.sp,
@@ -272,7 +318,7 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
                           color: AppColors.mediumBlue,
                           child: Center(
                             child: Text(
-                              '${branch}',
+                              '${widget.branch}',
                               style: TextStyle(
                                 fontFamily: 'bahnschrift',
                                 fontSize: 16.sp,
@@ -307,7 +353,7 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
                         color: AppColors.mediumBlue,
                         child: Center(
                           child: Text(
-                            '${destination}',
+                            '${widget.destination}',
                             style: TextStyle(
                               fontFamily: 'bahnschrift',
                               fontSize: 16.sp,
@@ -349,7 +395,7 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
                           color: AppColors.mediumBlue,
                           child: Center(
                             child: Text(
-                              '${creator_name}',
+                              '${widget.creator_name}',
                               style: TextStyle(
                                 fontFamily: 'bahnschrift',
                                 fontSize: 16.sp,
@@ -384,7 +430,7 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
                         color: AppColors.mediumBlue,
                         child: Center(
                           child: Text(
-                            '${editor_name}',
+                            '${widget.editor_name}',
                             style: TextStyle(
                               fontFamily: 'bahnschrift',
                               fontSize: 16.sp,
@@ -399,8 +445,284 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
               DividerBetweenListElements(),
             ],
           ),
-          //todo:
-       //   OpenTripDetails2ForB_Manager(),
+          BlocConsumer<GetTripInfoCubit, GetState<GetTripInfoEntity>>(
+            listener: (context, state) {
+              state.whenOrNull(
+                error: (NetworkExceptions exception) {
+                  Fluttertoast.showToast(
+                    msg: NetworkExceptions.getErrorMessage(exception),
+                    toastLength: Toast.LENGTH_SHORT,
+                  );
+                },
+              );
+            },
+            builder: (context, state) {
+              return state.maybeWhen(
+                orElse: () => const Center(child: Text("No data available")),
+                loading: () => const Center(child: CircularProgressIndicator()),
+                success: (data) {
+                  general = data.data.manifest.generalTotal;
+                  against_shipping = data.data.manifest.againstShipping;
+                  discount = data.data.manifest.discount.toString();
+                  adapter = data.data.manifest.adapter.toString();
+                  netTotal = data.data.manifest.netTotal;
+                  miscPaid = data.data.manifest.miscPaid.toString();
+                  advance = data.data.manifest.advance.toString();
+                  collection = data.data.manifest.collection;
+                  widget.number= data.data.manifest.number ;
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      children: [
+                        SpaceItem(),
+                        Container(
+                          width: double.infinity,
+                          child: Material(
+                            elevation: 1.0,
+                            child: Column(
+                              children: [
+                                Text(
+                                  'General Total',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.pureBlack,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  '${general}',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.yellow,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SpaceItem(),
+                        Container(
+                          width: double.infinity,
+                          child: Material(
+                            elevation: 1.0,
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Against Shipping',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.pureBlack,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  '${against_shipping}',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.yellow,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SpaceItem(),
+                        Container(
+                          width: double.infinity,
+                          child: Material(
+                            elevation: 1.0,
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Discount',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.pureBlack,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  '${discount}',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.yellow,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SpaceItem(),
+                        Container(
+                          width: double.infinity,
+                          child: Material(
+                            elevation: 1.0,
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Adapter',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.pureBlack,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  '${adapter}',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.yellow,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SpaceItem(),
+                        Container(
+                          width: double.infinity,
+                          child: Material(
+                            elevation: 1.0,
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Net Total',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.pureBlack,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  '${netTotal}',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.yellow,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SpaceItem(),
+                        Container(
+                          width: double.infinity,
+                          child: Material(
+                            elevation: 1.0,
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Advance',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.pureBlack,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  '${advance}',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.yellow,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SpaceItem(),
+                        Container(
+                          width: double.infinity,
+                          child: Material(
+                            elevation: 1.0,
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Misc.Paid',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.pureBlack,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  '${miscPaid}',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.yellow,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SpaceItem(),
+                        Container(
+                          width: double.infinity,
+                          child: Material(
+                            elevation: 1.0,
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Collection',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.pureBlack,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  '${collection.toString()}',
+                                  style: TextStyle(
+                                    fontFamily: 'bahnschrift',
+                                    color: AppColors.yellow,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SpaceItem(),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -408,10 +730,23 @@ class OpenTripRecordForB_Manager extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ManifestScreenForB_Manager(manifest_id: manifest_id,
-
-
-                  )));
+                  builder: (context) => opentripsManifestScreenForB_Manager(
+                        // adapter: adapter,
+                        // advance: advance,
+                        // against_shipping: against_shipping,
+                        // collection: collection,
+                        // consignee: consignee,
+                        // count: count,
+                        // discount: discount,
+                        // miscellaneous: miscellaneous,
+                        // pre_paid: pre_paid,
+                        // quantity: quantity,
+                        // receipt: receipt,
+                        // sender: sender,
+                        // source: source,
+                        // type: type,
+                        manifestNumber: widget.number,
+                      )));
         },
         backgroundColor: AppColors.darkBlue,
         shape: CircleBorder(),

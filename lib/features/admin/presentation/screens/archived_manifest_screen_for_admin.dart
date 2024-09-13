@@ -11,10 +11,16 @@ import '../widgets/trip_record_text.dart';
 
 
 
-class ArchivedManifestScreenForAdmin extends StatelessWidget{
+class ArchivedManifestScreenForBM extends StatefulWidget{
 
   final String number ;
-  const ArchivedManifestScreenForAdmin({super.key, required this.number});
+  const ArchivedManifestScreenForBM({super.key, required this.number});
+
+  @override
+  State<ArchivedManifestScreenForBM> createState() => _ArchivedManifestScreenForBMState();
+}
+
+class _ArchivedManifestScreenForBMState extends State<ArchivedManifestScreenForBM> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -49,7 +55,7 @@ class ArchivedManifestScreenForAdmin extends StatelessWidget{
               children: [
                 Expanded(
                   child: Text(
-                    'Manifest  $number',
+                    'Manifest  ${widget.number}',
                     style: TextStyle(
                       color: AppColors.pureBlack,
                       fontFamily: 'bahnschrift',
@@ -80,7 +86,7 @@ class ArchivedManifestScreenForAdmin extends StatelessWidget{
                     color: AppColors.darkBlue,
                   ),
                   Expanded(
-                    child: BuildArchivedManifestTable(manifestNumber: number,),
+                    child: BuildArchivedManifestTable(manifestNumber: widget.number,),
                   ),
                 ],
               ),
@@ -90,5 +96,4 @@ class ArchivedManifestScreenForAdmin extends StatelessWidget{
       ),
     );
   }
-
 }

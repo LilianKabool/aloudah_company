@@ -42,13 +42,28 @@ import 'package:aloudeh_company/features/branchManager/controllers/delete_truck_
 import 'package:aloudeh_company/features/branchManager/controllers/edit_shipping_cost_cubit.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/get_all_archive_trips_cubit.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/get_all_closed_trips_cubit.dart';
+import 'package:aloudeh_company/features/branchManager/controllers/get_all_customers_for_bm_cubit.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/get_all_drivers_cubit.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/get_all_employee_cubit.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/get_all_open_trips_cubit.dart';
+import 'package:aloudeh_company/features/branchManager/controllers/get_all_trucks_by_branch_cubit.dart';
+import 'package:aloudeh_company/features/branchManager/controllers/get_branches_pagenation_cubit.dart';
+import 'package:aloudeh_company/features/branchManager/controllers/get_manifest_bm_cubit.dart';
+import 'package:aloudeh_company/features/branchManager/controllers/get_profile_cubit.dart';
+import 'package:aloudeh_company/features/branchManager/controllers/get_shipping_cubit.dart';
+import 'package:aloudeh_company/features/branchManager/controllers/get_trip_information_cubit.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/log_in_cubit.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/update_driver_cubit.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/update_employee_cubit.dart';
 import 'package:aloudeh_company/features/branchManager/controllers/update_truck_cubit.dart';
+import 'package:aloudeh_company/features/branchManager/data/entity/get_shipping_entity.dart';
+import 'package:aloudeh_company/features/branchManager/presentation/screens/branch_manager/b_manager_main_screen.dart';
+import 'package:aloudeh_company/features/branchManager/presentation/screens/branch_manager/trucks_list_for_b_manager.dart';
+import 'package:aloudeh_company/features/customer/conroller/add_complient_cubit.dart';
+import 'package:aloudeh_company/features/customer/conroller/get_arrived_shippings_cubit.dart';
+import 'package:aloudeh_company/features/customer/conroller/get_not_arrived_shipping_cubit.dart';
+import 'package:aloudeh_company/features/customer/conroller/get_not_received_shipping_cubit.dart';
+import 'package:aloudeh_company/features/customer/conroller/get_received_shipping_cubit.dart';
 import 'package:aloudeh_company/features/driver/presentation/controllers/driver_log_in_cubit.dart';
 import 'package:aloudeh_company/features/driver/presentation/controllers/driver_profile_cubit.dart';
 import 'package:aloudeh_company/features/driver/presentation/controllers/edit_driver_profile_cubit.dart';
@@ -65,7 +80,6 @@ import 'package:aloudeh_company/features/employee/presentation/controller/delete
 import 'package:aloudeh_company/features/employee/presentation/controller/edit_trip_cubit.dart';
 import 'package:aloudeh_company/features/employee/presentation/controller/get_all_customers_paginated_cubit.dart';
 import 'package:aloudeh_company/features/employee/presentation/controller/get_all_trips_paginated_cubit.dart';
-import 'package:aloudeh_company/features/employee/presentation/controller/get_branch_by_id_cubit.dart';
 import 'package:aloudeh_company/features/employee/presentation/controller/get_branch_location_employee_cubit.dart';
 import 'package:aloudeh_company/features/employee/presentation/controller/get_customer_by_id_cubit.dart';
 import 'package:aloudeh_company/features/employee/presentation/controller/get_customer_filter_cubit.dart';
@@ -94,8 +108,6 @@ import 'package:aloudeh_company/features/warehouse/presentation/controllers/get_
 import 'package:aloudeh_company/features/warehouse/presentation/controllers/get_good_cubit.dart';
 import 'package:aloudeh_company/features/warehouse/presentation/controllers/get_manifest_cubit.dart';
 import 'package:aloudeh_company/features/warehouse/presentation/controllers/get_notification_cubit.dart';
-
-// import 'package:aloudeh_company/features/shared/presentation/controllers/get_role_cubit.dart';
 import 'package:aloudeh_company/features/warehouse/presentation/controllers/getx/cubit/barcode_scanner_cubit.dart';
 import 'package:aloudeh_company/features/warehouse/presentation/controllers/getx/cubit/cubit/barcode_scanner_list_cubit.dart';
 import 'package:aloudeh_company/features/warehouse/presentation/controllers/inventory_good_cubit.dart';
@@ -110,8 +122,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'features/branchManager/controllers/get_all_truck_pagination_cubit.dart';
+import 'features/branchManager/presentation/screens/branch_manager/edit_truck_screen.dart';
+import 'features/branchManager/presentation/widget/edit_user_info_in_edit_truck_screen.dart';
+import 'features/customer/presentation/screens/customer_main_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -196,6 +210,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<GetAllCustomersEmployeePaginatedCubit>(),
+        ),BlocProvider(
+          create: (context) => getIt<GetTripInfoCubit>(),
+        ),BlocProvider(
+          create: (context) => getIt<GetAllBranchesBMPaginatedCubit>(),
         ),
         BlocProvider(
           create: (context) => getIt<DeleteCustomerCubit>(),
@@ -292,6 +310,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<GetProfileCubit>(),
+        ),  BlocProvider(
+          create: (context) => getIt<GetProfileBMCubit>(),
         ),
         BlocProvider(
           create: (context) => getIt<LogInWarehouseCubit>(),
@@ -321,6 +341,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<GetManifestWarehouseCubit>(),
+        ), BlocProvider(
+          create: (context) => getIt<GetManifestBMCubit>(),
+        ),BlocProvider(
+          create: (context) => getIt<GetShippingCubit>(),
         ),
         BlocProvider(
           create: (context) => getIt<EditDriverProfileCubit>(),
@@ -339,6 +363,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<LogInBMCubit>(),
+        ), BlocProvider(
+          create: (context) => getIt<GetProfileCubit>(),
         ),
         BlocProvider(
           create: (context) => getIt<RegisterCubit>(),
@@ -468,6 +494,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<DeleteEmployeeCubit>(),
+        ),  BlocProvider(
+          create: (context) => getIt<GetAllCustomersForBMCubit>(),
         ),
         BlocProvider(
           create: (context) => getIt<DeleteTruckCubit>(),
@@ -496,6 +524,20 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<GetAllTruckRecordPaginatedCubit>(),
+        ),BlocProvider(
+          create: (context) => getIt<AddTruckCubit>(),
+        ),BlocProvider(
+          create: (context) => getIt<GetAllTrucksByBranchCubit>(),
+        ),BlocProvider(
+          create: (context) => getIt<GetArrivedShippingCubit>(),
+        ),BlocProvider(
+          create: (context) => getIt<GetNotArrivedShippingCubit>(),
+        ),BlocProvider(
+          create: (context) => getIt<GetReceivedShippingCubit>(),
+        ),BlocProvider(
+          create: (context) => getIt<GetNotReceivedShippingCubit>(),
+        ),BlocProvider(
+          create: (context) => getIt<AddComplaintBMCubit>(),
         ),
       ],
       child: ScreenUtilInit(
@@ -507,7 +549,7 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                 useMaterial3: true,
               ),
-              home: const SplashScreen()
+              home:  B_ManagerMainScreen()
 
               //  EmployeeTrackingScreen(tripNumber: "HO_1_2",branchId: 3,),
 
